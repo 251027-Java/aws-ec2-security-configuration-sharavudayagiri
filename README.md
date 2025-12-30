@@ -26,12 +26,12 @@ You are deploying a web application that needs:
 ### Task 1: Design Security Group Rules
 Fill in the following table with appropriate values:
 
-| Rule | Type | Protocol | Port | Source | Purpose |
-|------|------|----------|------|--------|---------|
-| 1    | SSH  | TCP      | ?    | ?      | Admin access |
-| 2    | ?    | TCP      | 80   | ?      | Web traffic |
-| 3    | ?    | TCP      | 443  | ?      | Secure web |
-| 4    | Custom TCP | TCP | ?  | 10.0.0.0/8 | Internal API |
+| Rule | Type       | Protocol | Port | Source        | Purpose      |
+|------|------------|----------|------|---------------|--------------||
+| 1    | SSH        | TCP      | 22   | My IP         | Admin access |
+| 2    | HTTP       | TCP      | 80   | Anywhere-IPv4 | Web traffic  |
+| 3    | HTTPS      | TCP      | 443  | Anywhere-IPv4 | Secure web   |
+| 4    | Custom TCP | TCP      | 8080 | 10.0.0.0/8    | Internal API |
 
 ### Task 2: Create Security Group (Console)
 1. Navigate to EC2 → Security Groups → Create
@@ -74,11 +74,11 @@ aws ec2 authorize-security-group-ingress \
 ### Task 5: Troubleshooting Exercise
 Given these symptoms, identify the likely cause:
 
-| Symptom | Likely Cause | Solution |
-|---------|--------------|----------|
-| Can't SSH to instance | ? | ? |
-| Website not loading | ? | ? |
-| API calls timing out | ? | ? |
+| Symptom                | Likely Cause                                          | Solution                                                  |
+|------------------------|-------------------------------------------------------|-----------------------------------------------------------|
+| Can't SSH to instance  | SSH rule (port 22) missing or incorrect source IP     | Add/verify SSH rule with correct source IP (My IP)        |
+| Website not loading    | HTTP/HTTPS rules (ports 80/443) missing or blocked    | Add HTTP and HTTPS rules with source Anywhere IPv-4       |
+| API calls timing out   | Custom TCP rule (port 8080) missing                   | Add port 8080 rule with correct source (10.0.0.0/8)       |
 
 ## Deliverables
 1. Completed security group rules table (Task 1)
